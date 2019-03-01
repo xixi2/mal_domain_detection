@@ -68,18 +68,20 @@ def get_domain_info(res_list):
 def dig_one_domain(domain):
     prefix = "dig @ %s %s"
     dns_servers = [
-        "8.8.8.8", "8.8.4.4"                    # DNS servers
+        "8.8.8.8", "8.8.4.4",                    # DNS servers
         "114.114.114.114", "114.114.115.115"    # 114DNS
     ]
+    answer_list, authority_list, additional_list = [], [], []
     for dns_server in dns_servers:
         command = prefix % (dns_server, domain)
         pfile = os.popen(command)
         res = pfile.read()
+        pfile.close()
         res_list = [item.strip(";").strip(" ") for item in res.split("\n") if item != ""]
         answer_list, authority_list, additional_list = get_domain_info(res_list)
         if answer_list:
             break
-        pfile.close()
+    return answer_list, authority_list, additional_list
 
 
 if __name__ == "__main__":

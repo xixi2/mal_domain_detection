@@ -48,6 +48,9 @@ def save2database(domains):
             else:
                 add_sql += ", insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
                 add_info[0], add_info[1], add_info[2])
-        insert_db(conn, ans_sql)
-        insert_db(conn, auth_sql)
-        insert_db(conn, add_sql)
+        if ans_sql:
+            insert_db(conn, ans_sql)
+        if auth_sql:
+            insert_db(conn, auth_sql)
+        if add_sql:
+            insert_db(conn, add_sql)
