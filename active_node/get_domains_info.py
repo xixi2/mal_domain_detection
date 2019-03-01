@@ -25,10 +25,10 @@ def save2database(domains):
         ans_sql = ""
         for index, answer in enumerate(answer_list):
             if index == 0:
-                ans_sql += "insert into dns_answer (domain_name, ip, TTL) VALUES ('%s','%s', %s)" % (
+                ans_sql += "insert into dns_answer (domain_name,TTL , ip) VALUES ('%s',%s, '%s')" % (
                     answer[0], answer[1], answer[2])
             else:
-                ans_sql += ", insert into dns_answer (domain_name, ip, TTL) VALUES ('%s','%s', %s)" % (
+                ans_sql += ", insert into dns_answer (domain_name, TTL, ip) VALUES ('%s',%s, '%s')" % (
                     answer[0], answer[1], answer[2])
 
         auth_sql = ""
