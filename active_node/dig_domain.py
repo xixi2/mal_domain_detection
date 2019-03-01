@@ -11,13 +11,17 @@ def get_detail_info(res_list, start_index, total_count, choice=1):
             ans_list = [item.strip(" ") for item in re.split("\t| ", ans_str) if len(item) > 0]
             i += 1
             if choice == 1:
-                del ans_list[2], ans_list[2]  # first delete the index 0 item and then resort the items
+                if ans_list[3] == "A":
+                    del ans_list[2], ans_list[2]  # first delete the index 0 item and then resort the items
+                else:               # 当answer是CNAME记录时
+                    ans_list = []
             if choice == 2:
                 del ans_list[2], ans_list[2]
             if choice == 3:
                 del ans_list[2], ans_list[2]
             # print("choice: %s, ans_list: %s" % (choice, ans_list))
-            temp_list.append(tuple(ans_list))
+            if ans_list:
+                temp_list.append(tuple(ans_list))
     return temp_list
 
 

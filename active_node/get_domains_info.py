@@ -26,9 +26,9 @@ def save2database(domains):
         for index, answer in enumerate(answer_list):
             if index == 0:
                 ans_sql += "insert into dns_answer (domain_name,TTL , ip) VALUES ('%s',%s, '%s')" % (
-                    answer[0], answer[1], answer[2])
+                    domain, answer[1], answer[2])
             else:
-                ans_sql += ", ('%s',%s, '%s')" % (answer[0], answer[1], answer[2])
+                ans_sql += ", ('%s',%s, '%s')" % (domain, answer[1], answer[2])
 
         auth_sql = ""
         for index, auth in enumerate(authority_list):
