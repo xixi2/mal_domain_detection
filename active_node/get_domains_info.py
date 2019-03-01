@@ -1,4 +1,6 @@
+import time
 from active_node.dig_domain import dig_one_domain
+from active_node.remove_duplicate import remove_double
 from common.database_op import connect_db, insert_db
 
 DST_DIR = "../data_set/extrated_bad_domains/"
@@ -54,6 +56,9 @@ def save2database(domains):
 
 
 if __name__ == "__main__":
-    choice = int(input())
-    v_domains = read_from_domain_list(choice)
-    save2database(v_domains)
+    for i in range(10):
+        # choice = int(input())
+        choice = 2
+        v_domains = read_from_domain_list(choice)
+        save2database(v_domains)
+    remove_double()
