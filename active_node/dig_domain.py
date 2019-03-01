@@ -51,17 +51,17 @@ def get_domain_info(res_list):
 
     # answer domain_name, TTL, 'IN', 'A', IP_address
     answer_list = get_detail_info(res_list, answer_index, answer_count, 1)
-    # print("len of answer_list: %s" % (answer_list,))
+    print("len of answer_list: %s" % (len(answer_list),))
 
     # authority: the nameserver which provides the convertion result from domain name to the ip address
     # authority: domain_name, TTL, 'IN', 'NS', nameserver
     authority_list = get_detail_info(res_list, authority_index, authority_count, 2)
-    # print("len of authority_list: %s" % (authority_list,))
+    print("len of authority_list: %s" % (len(authority_list),))
 
     # additional: sometimes may not exist, which the ip address belonging to the nameserver
     # additional: nameserver, TTL, 'IN', 'A', IP_address
     additional_list = get_detail_info(res_list, additional_index, additional_count, 3)
-    # print("len of additional_list: %s" % (additional_list,))
+    print("len of additional_list: %s" % (len(additional_list),))
     return answer_list, authority_list, additional_list
 
 

@@ -1,4 +1,4 @@
-from .dig_domain import dig_one_domain
+from active_node.dig_domain import dig_one_domain
 from common.database_op import connect_db, insert_db
 
 DST_DIR = "../data_set/extrated_bad_domains/"
@@ -26,31 +26,37 @@ def save2database(domains):
         for index, answer in enumerate(answer_list):
             if index == 0:
                 ans_sql += "insert into dns_answer (domain_name, ip, TTL) VALUES ('%s','%s', %s)" % (
-                answer[0], answer[1], answer[2])
+                    answer[0], answer[1], answer[2])
             else:
                 ans_sql += ", insert into dns_answer (domain_name, ip, TTL) VALUES ('%s','%s', %s)" % (
-                answer[0], answer[1], answer[2])
+                    answer[0], answer[1], answer[2])
 
         auth_sql = ""
         for index, auth in enumerate(authority_list):
             if index == 0:
                 auth_sql += "insert into dns_auth_answer (domain_name, TTL, nameserver) VALUES ('%s', %s, '%s')" % (
-                auth[0], auth[1], auth[2])
+                    auth[0], auth[1], auth[2])
             else:
                 auth_sql += ", insert into dns_auth_answer (domain_name, TTL, nameserver) VALUES ('%s', %s, '%s')" % (
-                auth[0], auth[1], auth[2])
+                    auth[0], auth[1], auth[2])
 
         add_sql = ""
         for index, add_info in enumerate(additional_list):
             if index == 0:
                 add_sql += "insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
-                add_info[0], add_info[1], add_info[2])
+                    add_info[0], add_info[1], add_info[2])
             else:
                 add_sql += ", insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
-                add_info[0], add_info[1], add_info[2])
+                    add_info[0], add_info[1], add_info[2])
         if ans_sql:
             insert_db(conn, ans_sql)
         if auth_sql:
             insert_db(conn, auth_sql)
         if add_sql:
             insert_db(conn, add_sql)
+
+
+if __name__ == "__main__":
+    choice = int(input())
+    v_domains = read_from_domain_list(choice)
+    save2database(v_domains)
