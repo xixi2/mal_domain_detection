@@ -86,6 +86,9 @@ def dig_one_domain(domain):
         answer_list, authority_list, additional_list = get_domain_info(res_list)
         if answer_list:
             break
+        # 当answer为空时，强行将authority_list和additional_list置空
+        if not answer_list:
+            authority_list, additional_list = [], []
     return answer_list, authority_list, additional_list
 
 
