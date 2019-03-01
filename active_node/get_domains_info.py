@@ -61,4 +61,5 @@ if __name__ == "__main__":
         choice = 2
         v_domains = read_from_domain_list(choice)
         save2database(v_domains)
+        time.sleep(3600)
     remove_double()
