@@ -66,7 +66,7 @@ def get_domain_info(res_list):
 
 
 def dig_one_domain(domain):
-    prefix = "dig @ %s %s"
+    prefix = "dig @%s %s"
     dns_servers = [
         "8.8.8.8", "8.8.4.4",                    # DNS servers
         "114.114.114.114", "114.114.115.115"    # 114DNS
