@@ -7,7 +7,8 @@ def get_detail_info(res_list, start_index, total_count, choice=1):
     i = 0
     if i < total_count and start_index < len(res_list):
         while i < total_count and start_index + i < len(res_list):
-            ans_list = [item.strip(" ") for item in res_list[start_index + i].split("\t") if len(item) > 0]
+            ans_str = res_list[start_index + i].strip(" ")
+            ans_list = [item.strip(" ") for item in re.split("\t| ", ans_str) if len(item) > 0]
             i += 1
             if choice == 1:
                 del ans_list[2], ans_list[2]  # first delete the index 0 item and then resort the items
