@@ -43,7 +43,18 @@ def update_db(conn, sql):
         conn.rollback()
 
 
+def delete_db(conn, sql):
+    try:
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        conn.commit()
+    except Exception as e:
+        print('Error: {0}, sql: {1}'.format(e, sql))
+        conn.rollback()
+
+
+
 if __name__ == '__main__':
     conn = connect_db()
-    table_name = 'feature'
-    values = ('vvvv',)
+    sql = "delete from dns_answer where id in (137)"
+    delete_db(conn, sql)

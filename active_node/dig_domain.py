@@ -5,23 +5,26 @@ import re
 def get_detail_info(res_list, start_index, total_count, choice=1):
     temp_list = []
     i = 0
-    if i < total_count and start_index < len(res_list):
-        while i < total_count and start_index + i < len(res_list):
-            ans_str = res_list[start_index + i].strip(" ")
-            ans_list = [item.strip(" ") for item in re.split("\t| ", ans_str) if len(item) > 0]
-            i += 1
-            if choice == 1:
-                if ans_list[3] == "A":
-                    del ans_list[2], ans_list[2]  # first delete the index 0 item and then resort the items
-                else:               # 当answer是CNAME记录时
-                    ans_list = []
-            if choice == 2:
-                del ans_list[2], ans_list[2]
-            if choice == 3:
-                del ans_list[2], ans_list[2]
-            # print("choice: %s, ans_list: %s" % (choice, ans_list))
-            if ans_list:
-                temp_list.append(tuple(ans_list))
+    try:
+        if i < total_count and start_index < len(res_list):
+            while i < total_count and start_index + i < len(res_list):
+                ans_str = res_list[start_index + i].strip(" ")
+                ans_list = [item.strip(" ") for item in re.split("\t| ", ans_str) if len(item) > 0]
+                i += 1
+                if choice == 1:
+                    if ans_list[3] == "A":
+                        del ans_list[2], ans_list[2]  # first delete the index 0 item and then resort the items
+                    else:               # 当answer是CNAME记录时
+                        ans_list = []
+                if choice == 2:
+                    del ans_list[2], ans_list[2]
+                if choice == 3:
+                    del ans_list[2], ans_list[2]
+                # print("choice: %s, ans_list: %s" % (choice, ans_list))
+                if ans_list:
+                    temp_list.append(tuple(ans_list))
+    except Exception as e:
+        print("error e: %s" % e)
     return temp_list
 
 

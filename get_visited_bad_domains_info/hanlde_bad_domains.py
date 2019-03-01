@@ -178,11 +178,11 @@ def test_domains_list(choice):
             print("lines len: %s, id lines: %s" % (len(lines), id(lines)))
 
             for line in lines:
-                if len(bad_domains) >= 100:
+                if len(bad_domains) >= 50:
                     print("bad_domains write to file")
                     write2file(dst_file1, bad_domains)
                     bad_domains = []
-                if len(uncertain_domains) >= 100:
+                if len(uncertain_domains) >= 50:
                     print("uncertain_domains write to file")
                     write2file(dst_file2, uncertain_domains)
                     uncertain_domains = []
