@@ -28,8 +28,7 @@ def save2database(domains):
                 ans_sql += "insert into dns_answer (domain_name,TTL , ip) VALUES ('%s',%s, '%s')" % (
                     answer[0], answer[1], answer[2])
             else:
-                ans_sql += ", insert into dns_answer (domain_name, TTL, ip) VALUES ('%s',%s, '%s')" % (
-                    answer[0], answer[1], answer[2])
+                ans_sql += ", ('%s',%s, '%s')" % (answer[0], answer[1], answer[2])
 
         auth_sql = ""
         for index, auth in enumerate(authority_list):
@@ -37,8 +36,7 @@ def save2database(domains):
                 auth_sql += "insert into dns_auth_answer (domain_name, TTL, nameserver) VALUES ('%s', %s, '%s')" % (
                     auth[0], auth[1], auth[2])
             else:
-                auth_sql += ", insert into dns_auth_answer (domain_name, TTL, nameserver) VALUES ('%s', %s, '%s')" % (
-                    auth[0], auth[1], auth[2])
+                auth_sql += ",('%s', %s, '%s')" % (auth[0], auth[1], auth[2])
 
         add_sql = ""
         for index, add_info in enumerate(additional_list):
@@ -46,8 +44,7 @@ def save2database(domains):
                 add_sql += "insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
                     add_info[0], add_info[1], add_info[2])
             else:
-                add_sql += ", insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
-                    add_info[0], add_info[1], add_info[2])
+                add_sql += ", ('%s', %s, '%s')" % (add_info[0], add_info[1], add_info[2])
         if ans_sql:
             insert_db(conn, ans_sql)
         if auth_sql:
