@@ -58,6 +58,7 @@ def save2database(domains):
 
 if __name__ == "__main__":
     for i in range(10):
+        remove_double()
         # choice = int(input())
         choice = 2
         v_domains = read_from_domain_list(choice)
@@ -66,4 +67,3 @@ if __name__ == "__main__":
         # 随机睡眠一段时间继续查看
         random_num = random.randint(60, 7200)
         time.sleep(random_num)
-    remove_double()
