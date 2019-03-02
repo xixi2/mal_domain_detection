@@ -15,6 +15,7 @@ def insert_db(conn, sql):
     try:
         cursor = conn.cursor()
         cursor.execute(sql)
+        cursor.close()
         conn.commit()
     except Exception as e:
         print('error {0}; sql: {1}'.format(e, sql))
@@ -30,6 +31,7 @@ def query_db(conn, sql, query_num=-1):
         res = cursor.fetchone()
     else:
         res = cursor.fetchmany(query_num)
+    cursor.close()
     return res
 
 
@@ -37,6 +39,7 @@ def update_db(conn, sql):
     try:
         cursor = conn.cursor()
         cursor.execute(sql)
+        cursor.close()
         conn.commit()
     except Exception as e:
         print('Error: {0}, sql: {1}'.format(e, sql))
@@ -46,11 +49,14 @@ def update_db(conn, sql):
 def delete_db(conn, sql):
     try:
         cursor = conn.cursor()
-        cursor.execute(sql)
+        res = cursor.execute(sql)
+        print("res: %s" % res)
+        cursor.close()
         conn.commit()
     except Exception as e:
         print('Error: {0}, sql: {1}'.format(e, sql))
         conn.rollback()
+
 
 
 
