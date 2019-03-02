@@ -54,8 +54,8 @@ def get_domain_info(res_list):
         elif res.find("ADDITIONAL SECTION") >= 0:
             additional_index = index + 1
 
-    print("answer_count: %s, authority_count:%s, additional_count:%s" % (
-        answer_count, authority_count, additional_count))
+    # print("answer_count: %s, authority_count:%s, additional_count:%s" % (
+    #     answer_count, authority_count, additional_count))
 
     # answer domain_name, TTL, 'IN', 'A', IP_address
     answer_list = get_detail_info(res_list, answer_index, answer_count, 1)
@@ -76,7 +76,7 @@ def get_domain_info(res_list):
 def dig_one_domain(domain):
     prefix = "dig @%s %s"
     dns_servers = [
-        "8.8.8.8", "8.8.4.4",                    # DNS servers
+        "8.8.8.8", "8.8.4.4",                    # google DNS servers
         "114.114.114.114", "114.114.115.115"    # 114DNS
     ]
     answer_list, authority_list, additional_list = [], [], []
@@ -86,12 +86,13 @@ def dig_one_domain(domain):
         res = pfile.read()
         pfile.close()
         res_list = [item.strip(";").strip(" ") for item in res.split("\n") if item != ""]
-        answer_list, authority_list, additional_list = get_domain_info(res_list)
-        if answer_list:
-            break
-        # 当answer为空时，强行将authority_list和additional_list置空
-        if not answer_list:
-            authority_list, additional_list = [], []
+        answer_temp_list, authority_temp_list, additional_temp_list = get_domain_info(res_list)
+
+        # 当answer_temp_list非空时，将信息加入到answer_list等中
+        if not answer_temp_list:
+            answer_list.extend(answer_temp_list)
+            authority_list.extend(authority_temp_list)
+            additional_list.extend(additional_temp_list)
     return answer_list, authority_list, additional_list
 
 

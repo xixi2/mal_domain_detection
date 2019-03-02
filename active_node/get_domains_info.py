@@ -1,4 +1,5 @@
 import time
+import random
 from active_node.dig_domain import dig_one_domain
 from active_node.remove_duplicate import remove_double
 from common.database_op import connect_db, insert_db
@@ -61,5 +62,8 @@ if __name__ == "__main__":
         choice = 2
         v_domains = read_from_domain_list(choice)
         save2database(v_domains)
-        time.sleep(3600)
+
+        # 随机睡眠一段时间继续查看
+        random_num = random.randint(60, 7200)
+        time.sleep(random_num)
     remove_double()
