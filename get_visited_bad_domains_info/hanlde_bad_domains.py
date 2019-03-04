@@ -207,7 +207,7 @@ def test_domains_list(choice):
 
 if __name__ == '__main__':
     # csv2txt()
-    choice = int(input())
+    choice = int(input("please enter a choice from 2,3 "))
     # print("choice: %s, type: %s" % (choice, type(choice)))
     # read_file_list(ROOT_DIR, choice)
     start = datetime.now()
