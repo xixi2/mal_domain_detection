@@ -77,7 +77,7 @@ def dig_one_domain(domain):
     prefix = "dig @%s %s"
     dns_servers = [
         "8.8.8.8", "8.8.4.4",                    # google DNS servers
-        "114.114.114.114", "114.114.115.115"    # 114DNS
+        "114.114.114.114", "114.114.115.115",    # 114DNS
         "1.1.1.1", "1.0.0.1",                    # CloudFlare DNS
         "119.29.29.29"                           # DNS pod
     ]
