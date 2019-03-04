@@ -21,7 +21,7 @@ def get_detail_info(res_list, start_index, total_count, choice=1):
                 if choice == 3:
                     del ans_list[2], ans_list[2]
                 # print("choice: %s, ans_list: %s" % (choice, ans_list))
-                if ans_list:
+                if len(ans_list) == 3:
                     temp_list.append(tuple(ans_list))
     except Exception as e:
         print("error e: %s" % e)
@@ -89,7 +89,7 @@ def dig_one_domain(domain):
         answer_temp_list, authority_temp_list, additional_temp_list = get_domain_info(res_list)
 
         # 当answer_temp_list非空时，将信息加入到answer_list等中
-        if not answer_temp_list:
+        if answer_temp_list:
             answer_list.extend(answer_temp_list)
             authority_list.extend(authority_temp_list)
             additional_list.extend(additional_temp_list)
