@@ -23,8 +23,9 @@ def read_from_domain_list(choice):
 
 def save2database(domains):
     for domain in domains:
-        print("handlering domain: %s" % domain)
         answer_list, authority_list, additional_list = dig_one_domain(domain)
+        print("handlering domain: %s, len of answer_list: %s" % (domain, len(answer_list)))
+
         ans_sql = ""
         for index, answer in enumerate(answer_list):
             if index == 0:
