@@ -22,9 +22,12 @@ def read_from_domain_list(choice):
 
 
 def save2database(domains):
+    count_zero = 0
     for domain in domains:
         answer_list, authority_list, additional_list = dig_one_domain(domain)
         print("handlering domain: %s, len of answer_list: %s" % (domain, len(answer_list)))
+        if len(answer_list) == 0:
+            count_zero += 1
 
         ans_sql = ""
         for index, answer in enumerate(answer_list):
@@ -55,6 +58,7 @@ def save2database(domains):
             insert_db(conn, auth_sql)
         if add_sql:
             insert_db(conn, add_sql)
+    print("total query %s domains, %s has not any results" % (len(domains), count_zero))
 
 
 if __name__ == "__main__":
