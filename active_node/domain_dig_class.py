@@ -3,10 +3,7 @@ import re
 
 
 def print_list(res_list):
-    if len(res_list) == 0:
-        print("empytu")
-    else:
-        print_list("len of res_list: %s" % len(res_list))
+    print("len of res_list: %s" % len(res_list))
     for index, item in enumerate(res_list):
         print("index: %s, item: %s" % (index, item))
 
@@ -98,13 +95,8 @@ class DomainDigger:
         #     answer_count, authority_count, additional_count))
 
         self.add_new_answer(answer_index, answer_count, self.answer_list, 1)
-        # print("len of answer_list: %s" % (len(self.answer_list),))
-
         self.add_new_answer(authority_index, authority_count, self.authority_list, 2)
-        # print("len of authority_list: %s" % (len(self.authority_list),))
-
         self.add_new_answer(additional_index, additional_count, self.additional_list, 3)
-        # print("len of additional_list: %s" % (len(self.additional_list),))
 
     def dig_domain(self, domain):
         self.clear_all_data()
@@ -120,9 +112,6 @@ class DomainDigger:
             with os.popen(command) as fd:
                 res = fd.read()
             res_list = [item.strip(";").strip(" ") for item in res.split("\n") if item != ""]
-
-            print_list(res_list)
-
             self.res_list.extend(res_list)
             self.get_domain_info()
         print_list(self.answer_list)
