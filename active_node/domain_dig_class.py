@@ -1,16 +1,20 @@
 import os
 import re
 
+
 def print_list(res_list):
+    if len(res_list) == 0:
+        print("empytu")
     for index, item in enumerate(res_list):
         print("index: %s, item: %s" % (index, item))
 
+
 class DomainDigger:
-    def __int__(self):
-        self.res_list = []
-        self.answer_list = []
-        self.authority_list = []
-        self.additional_list = []
+    def __init__(self, res_list=None, answer_list=None, authority_list=None, additional_list=None):
+        self.res_list = res_list if res_list else []
+        self.answer_list = answer_list if answer_list else []
+        self.authority_list = authority_list if authority_list else []
+        self.additional_list = additional_list if additional_list else []
 
     def clear_all_data(self):
         self.res_list.clear()
@@ -122,8 +126,6 @@ class DomainDigger:
             print_list(self.answer_list)
             print_list(self.authority_list)
             print_list(self.additional_list)
-
-
 
 
 if __name__ == "__main__":
