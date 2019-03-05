@@ -1,13 +1,22 @@
 import os
 import re
 
+def print_list(res_list):
+    for index, item in enumerate(res_list):
+        print("index: %s, item: %s" % (index, item))
 
-class DomainDigging:
+class DomainDigger:
     def __int__(self):
         self.res_list = []
         self.answer_list = []
         self.authority_list = []
         self.additional_list = []
+
+    def clear_all_data(self):
+        self.res_list.clear()
+        self.answer_list.clear()
+        self.authority_list.clear()
+        self.additional_list.clear()
 
     def get_detail_info(self, start_index, total_count, choice=1):
         temp_list = []
@@ -91,7 +100,8 @@ class DomainDigging:
         self.add_new_answer(additional_index, additional_count, self.additional_list, 3)
         print("len of additional_list: %s" % (len(self.additional_list),))
 
-    def dig_one_domain(self, domain):
+    def dig_domain(self, domain):
+        self.clear_all_data()
         prefix = "dig @%s %s"
         dns_servers = [
             "8.8.8.8", "8.8.4.4",  # google DNS servers
@@ -104,11 +114,20 @@ class DomainDigging:
             with os.popen(command) as fd:
                 res = fd.read()
             res_list = [item.strip(";").strip(" ") for item in res.split("\n") if item != ""]
+
+            print_list(res_list)
+
             self.res_list.extend(res_list)
             self.get_domain_info()
+            print_list(self.answer_list)
+            print_list(self.authority_list)
+            print_list(self.additional_list)
+
+
 
 
 if __name__ == "__main__":
     domains = ["freedownload.ir", "lrtips.com", "hlc.edu.com"]
-    # for domain in domains:
-    #     dig_one_domain(domain)
+    domain_digger = DomainDigger()
+    for domain in domains:
+        domain_digger.dig_domain(domain)
