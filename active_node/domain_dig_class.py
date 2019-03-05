@@ -1,6 +1,6 @@
 import os
 import re
-
+from datetime import datetime
 
 def print_list(res_list):
     print("len of res_list: %s" % len(res_list))
@@ -123,4 +123,8 @@ if __name__ == "__main__":
     domains = ["freedownload.ir", "lrtips.com", "hlc.edu.com"]
     domain_digger = DomainDigger()
     for domain in domains:
+        start = datetime.now()
         domain_digger.dig_domain(domain)
+        end = datetime.now()
+        time_cost = (end - start).seconds
+        print("time_cost: %s" % time_cost)
