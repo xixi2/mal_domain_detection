@@ -7,7 +7,6 @@ import jieba
 from domain_name.database_op import connect_db, query_db, insert_db, update_db
 from common.index_op_mal_dom import HOST, MAL_DOMAIN_DOC_TYPE, MAL_DOMAIN_INDEX_NAME, get_all_domains
 
-
 conn = connect_db()
 
 
@@ -37,14 +36,13 @@ def get_numbers_of_number(string):
     for c in string:
         if c >= '0' and c <= '9':
             # print('c: {0}'.format(c), end=' ')
-            total +=  1
+            total += 1
         # try:
         #     c = int(c)
         #     total += 1
         # except Exception as e:
         #     print('can not convert to number: {0}'.format(e))
     return total
-
 
 
 def get_number_ration_in_domain_names(domain_list):
@@ -127,7 +125,6 @@ def check_all_bad_domain_names():
     bad_dict = exist_common_bad_substring(domain_list)
     bad_dict2csv(bad_dict)
     get_number_ration_in_domain_names(domain_list)
-
 
 
 if __name__ == "__main__":
