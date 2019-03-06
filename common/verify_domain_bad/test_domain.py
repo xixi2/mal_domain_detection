@@ -22,7 +22,7 @@ def scan_url(domain):
         #     print("key: %s, val: %s" % (item, d[item]))
         # print(type(d["scans"]))
         # print(d["scans"])
-
+        response.close()
         bad_flag = False
         for item in d["scans"].items():
             # print("scans key: %s" % (item,))
