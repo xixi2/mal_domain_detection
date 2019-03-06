@@ -10,7 +10,7 @@ class DnsAnswer(Base):
     __tablename__ = 'dns_answer'
     id = Column(Integer, autoincrement=True, primary_key=True)
     domain_name = Column(String(250))
-    TTL = Column(Integer)
+    ttl = Column(Integer)
     ip = Column(String(20))
 
 
@@ -18,7 +18,7 @@ class AuthAnswer(Base):
     __tablename__ = 'dns_auth_answer'
     id = Column(Integer, autoincrement=True, primary_key=True)
     domain_name = Column(String(250))
-    TTL = Column(Integer)
+    ttl = Column(Integer)
     name_server = Column(String(250))
 
 
@@ -26,7 +26,7 @@ class AddAnswer(Base):
     __tablename__ = 'dns_add_answer'
     id = Column(Integer, autoincrement=True, primary_key=True)
     name_server = Column(String(250))
-    TTL = Column(Integer)
+    ttl = Column(Integer)
     ip = Column(String(20))
 
 

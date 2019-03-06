@@ -24,10 +24,11 @@ def read_from_domain_list(choice):
     return v_domains
 
 
-def list2objs(data_list, model):
+def list2objs(data_list, model, keys):
     objs = []
     for item in data_list:
-        obj = model(item[0], item[1], item[2])
+        params = {keys[0]: item[0], keys[1]: item[1], keys[2]:item[2]}
+        obj = model(params)
         objs.append(obj)
     return objs
 
@@ -51,10 +52,12 @@ def save2database(domains):
         for add_info in additional_list:
             add_answer = AddAnswer(add_info[0], add_info[1], add_info[2])
 
-
-        dns_answer_objs = list2objs(answer_list, DnsAnswer)
-        dns_auth_objs = list2objs(authority_list, AuthAnswer)
-        dns_add_objs = list2objs(additional_list, AddAnswer)
+        ans_keys = ("domain_name", "ttl", "ip")
+        auth_keys = ("domain_name", "ttl", "name_server")
+        add_keys = ("name_server", "ttl", "ip")
+        dns_answer_objs = list2objs(answer_list, DnsAnswer, ans_keys)
+        dns_auth_objs = list2objs(authority_list, AuthAnswer, auth_keys)
+        dns_add_objs = list2objs(additional_list, AddAnswer, add_keys)
         session.add_all(dns_answer_objs)
         session.add_all(dns_auth_objs)
         session.add_all(dns_add_objs)
