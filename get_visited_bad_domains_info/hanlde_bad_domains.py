@@ -172,7 +172,7 @@ def test_domains_list(choice):
             pos2 = lines.index(u_last_line)
             if pos1 <= pos2:
                 pos1 = pos2
-            lines = lines[pos1+1:]
+            lines = lines[pos1 + 1:]
             # print("v_last_line:%s u_last_line: %s" % (v_last_line, u_last_line))
             # print("pos1:%s pos2: %s" % (pos1, pos2))
             print("lines len: %s, id lines: %s" % (len(lines), id(lines)))
@@ -204,14 +204,16 @@ def test_domains_list(choice):
             write2file(dst_file2, uncertain_domains)
 
 
-
 if __name__ == '__main__':
     # csv2txt()
-    choice = int(input("please enter a choice from 2,3 "))
-    # print("choice: %s, type: %s" % (choice, type(choice)))
+    # choice = int(input("please enter a choice from 2,3 "))
+
     # read_file_list(ROOT_DIR, choice)
-    start = datetime.now()
-    test_domains_list(choice)
-    end = datetime.now()
-    time_cost = (end - start).seconds
-    print("time_cost: %s" % time_cost)
+    for i in range(10):
+        choice = 2
+        start = datetime.now()
+        test_domains_list(choice)
+        end = datetime.now()
+        time_cost = (end - start).seconds
+        print("time_cost: %s" % time_cost)
+        time.sleep(3600)
