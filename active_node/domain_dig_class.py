@@ -2,6 +2,7 @@ import os
 import re
 from datetime import datetime
 
+
 def print_list(res_list):
     print("len of res_list: %s" % len(res_list))
     for index, item in enumerate(res_list):
@@ -10,6 +11,13 @@ def print_list(res_list):
 
 class DomainDigger:
     def __init__(self, res_list=None, answer_list=None, authority_list=None, additional_list=None):
+        '''
+
+        :param res_list:
+        :param answer_list:
+        :param authority_list:
+        :param additional_list:
+        '''
         self.res_list = res_list if res_list else []
         self.answer_list = answer_list if answer_list else []
         self.authority_list = authority_list if authority_list else []
@@ -63,6 +71,14 @@ class DomainDigger:
         return answer_count, authority_count, additional_count
 
     def add_new_answer(self, start_index, count, data_list, choice):
+        '''
+
+        :param start_index:
+        :param count:
+        :param data_list:
+        :param choice:
+        :return:
+        '''
         tmp_list = self.get_detail_info(start_index, count, choice)
         if tmp_list:
             new_tmp = list(set(tmp_list) - set(data_list))

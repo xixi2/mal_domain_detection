@@ -1,63 +1,45 @@
 import time
 import random
-from active_node.dig_domain import dig_one_domain
 from active_node.remove_duplicate import remove_double
 from common.database_op import connect_db, insert_db
-
-DST_DIR = "../data_set/extrated_bad_domains/"
+from active_node.model import DnsAnswer, AuthAnswer, AddAnswer
+from common.mysql_config import DBSession
+from common.bad_domain_files_common import read_from_bad_domain_list
+from active_node.domain_dig_class import DomainDigger
 
 conn = connect_db()
+session = DBSession()
+domain_digger = DomainDigger()
 
 
-def read_from_domain_list(choice):
-    v_domains = []
-    file = DST_DIR + "v_domains" + str(choice) + ".txt"
-    with open(file) as f_out:
-        lines = f_out.readlines()
-        for line in lines:
-            domain = line.strip("\n")
-            v_domains.append(domain)
-
-    return v_domains
+def list2objs(data_list, model, keys):
+    objs = []
+    for item in data_list:
+        params = {keys[0]: item[0], keys[1]: item[1], keys[2]: item[2]}
+        obj = model(params)
+        objs.append(obj)
+    return objs
 
 
 def save2database(domains):
     count_zero = 0
     for domain in domains:
-        answer_list, authority_list, additional_list = dig_one_domain(domain)
+        answer_list, authority_list, additional_list = domain_digger.dig_domain(domain)
         print("handlering domain: %s, len of answer_list: %s" % (domain, len(answer_list)))
         if len(answer_list) == 0:
             count_zero += 1
+            continue
 
-        ans_sql = ""
-        for index, answer in enumerate(answer_list):
-            if index == 0:
-                ans_sql += "insert into dns_answer (domain_name,TTL , ip) VALUES ('%s',%s, '%s')" % (
-                    domain, answer[1], answer[2])
-            else:
-                ans_sql += ", ('%s',%s, '%s')" % (domain, answer[1], answer[2])
-
-        auth_sql = ""
-        for index, auth in enumerate(authority_list):
-            if index == 0:
-                auth_sql += "insert into dns_auth_answer (domain_name, TTL, nameserver) VALUES ('%s', %s, '%s')" % (
-                    auth[0], auth[1], auth[2])
-            else:
-                auth_sql += ",('%s', %s, '%s')" % (auth[0], auth[1], auth[2])
-
-        add_sql = ""
-        for index, add_info in enumerate(additional_list):
-            if index == 0:
-                add_sql += "insert into dns_add_answer (nameserver, TTL, ip) VALUES ('%s', %s, '%s')" % (
-                    add_info[0], add_info[1], add_info[2])
-            else:
-                add_sql += ", ('%s', %s, '%s')" % (add_info[0], add_info[1], add_info[2])
-        if ans_sql:
-            insert_db(conn, ans_sql)
-        if auth_sql:
-            insert_db(conn, auth_sql)
-        if add_sql:
-            insert_db(conn, add_sql)
+        ans_keys = ("domain_name", "ttl", "ip")
+        auth_keys = ("domain_name", "ttl", "name_server")
+        add_keys = ("name_server", "ttl", "ip")
+        dns_answer_objs = list2objs(answer_list, DnsAnswer, ans_keys)
+        dns_auth_objs = list2objs(authority_list, AuthAnswer, auth_keys)
+        dns_add_objs = list2objs(additional_list, AddAnswer, add_keys)
+        session.add_all(dns_answer_objs)
+        session.add_all(dns_auth_objs)
+        session.add_all(dns_add_objs)
+        session.commit()
     print("total query %s domains, %s has not any results" % (len(domains), count_zero))
 
 
@@ -65,9 +47,11 @@ if __name__ == "__main__":
     for i in range(10):
         # choice = int(input())
         choice = 2
-        v_domains = read_from_domain_list(choice)
+        v_domains = read_from_bad_domain_list(choice)
         save2database(v_domains)
 
         # 随机睡眠一段时间继续查看
         random_num = random.randint(60, 7200)
         time.sleep(random_num)
+
+    session.close()
