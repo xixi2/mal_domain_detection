@@ -15,3 +15,13 @@ def generate_day_seq(start_day, day_range=1, date_format="%Y.%m.%d", forward=1):
         dt_str_seq.append(dt_str)
         dt = dt + timedelta(days=forward)
     return dt_str_seq
+
+
+def str2date(date_str):
+    """
+    解析日期字符串为日期对象
+    :param date_str: 如1995-05-03T210000-0700
+    :return:
+    """
+    pass
+
