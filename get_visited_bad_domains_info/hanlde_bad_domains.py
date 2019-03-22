@@ -1,10 +1,4 @@
-"""
-此文件是为了处理恶意域名数据集，这些数据集中有一些额外字段，需要提取
-"""
-import os
-import re
-import time
-import tldextract
+"""此文件是为了处理恶意域名数据集，这些数据集中有一些额外字段，需要提取"""
 import csv
 import pandas as pd
 
