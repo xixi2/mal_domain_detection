@@ -133,6 +133,7 @@ class DomainDigger:
         print_list(self.answer_list)
         print_list(self.authority_list)
         print_list(self.additional_list)
+        return self.answer_list, self.authority_list, self.additional_list
 
 
 if __name__ == "__main__":
