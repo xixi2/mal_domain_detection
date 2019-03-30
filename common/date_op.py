@@ -25,3 +25,11 @@ def str2date(date_str):
     """
     pass
 
+
+def timestamp_str2ymdh(timestamp_str, date_format="%Y%m%d%H"):
+    """把字符串类型的时间戳转换为年月日时组成的字符串，形如：2018100207"""
+    timestamp_str = timestamp_str.split(".")[0]
+    timestamp = int(timestamp_str)
+    dt = datetime.fromtimestamp(timestamp)
+    dt_str = dt.strftime(date_format)
+    return dt_str
