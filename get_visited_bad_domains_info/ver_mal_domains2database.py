@@ -1,8 +1,8 @@
 import os
 from pymongo import MongoClient
 
-from common.common_domains_op import VER_DOM_DIR
-from common.common_domains_op import read_ver_bad_domain_file
+from common.domains_op import VER_DOM_DIR
+from common.domains_op import read_ver_bad_domain_file
 from common.mongodb_op import mongo_url, MAL_DOMS_MONGO_DB, MAL_DOMS_MONGO_INDEX
 
 client = MongoClient(mongo_url)

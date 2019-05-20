@@ -22,7 +22,7 @@ def write_error_domains(domain, file="502_domains.txt"):
 def scan_url(domain):
     """
     :param domain: 待检测的域名
-    :return: 返回一个dict domain:被检测的域名 flag:该域名是否是恶意的
+    :return: 返回一个布尔值:该域名是否是恶意的
     """
     key_index = random.choice(range(0, len(API_KEYS)))
     api_key = API_KEYS[key_index]
@@ -56,11 +56,12 @@ def scan_url(domain):
             if d['response_code'] == 0:
                 # 如出现了response.status_code == 0时：Resource does not exist in the dataset
                 print("response.json(): %s" % (response.json(),))
-                break
+                # return True
+                break             # 这里在为已知的二级恶意域名验证完整域名时，假定查不到时，完整域名为恶意域名
             for item in d["scans"].items():
                 if item[1]["detected"]:
                     return True
-            # 成功返回，当该域名不是恶意域名
+            # 成功返回，当该域名不是恶意域名 或者statuc_code == 0
             return False
         except Exception as e:
             # write_error_domains(domain)

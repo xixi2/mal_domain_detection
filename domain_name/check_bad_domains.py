@@ -35,8 +35,7 @@ def save2database(domain_info_list):
     insert_db(conn, sql)
 
 
-
-def check1m_good_domains(batch_num=100):
+def check1m_bad_domains(batch_num=100):
     bad_domains = set_mal_domain_index_params()
     domain_info_list = []
     i = 0
@@ -62,18 +61,6 @@ def check1m_good_domains(batch_num=100):
             domain_info_list = []
 
 
-def get1m_bad_domains():
-    good_domains = []
-    with open("top-1m.csv") as f:
-        f_csv = csv.reader(f)
-        headers = next(f_csv)
-        for line in f_csv:
-            # print('line: {0}'.format(line[1]))
-            domain_name = line[1]
-            good_domains.append(domain_name)
-    return good_domains
-
-
 if __name__ == '__main__':
-    check1m_good_domains()
+    check1m_bad_domains()
     # get1m_good_domains()

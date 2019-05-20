@@ -4,11 +4,11 @@
 import os
 import re
 import tldextract
-from common.common_domains_op import write2file
-from common.common_domains_op import FULL_DOM_DIR, UVER_DOM_DIR
+from common.domains_op import write2file
+from common.domains_op import FULL_DOM_DIR, UVER_DOM_DIR
 
 # 暂时这么写
-from common.common_domains_op import keep_2nd_dom_name, keep_3th_dom_name
+from common.domains_op import keep_2nd_dom_name, keep_3th_dom_name
 
 DOMAIN_LEVEL_CHOICE = {
     2: keep_2nd_dom_name,

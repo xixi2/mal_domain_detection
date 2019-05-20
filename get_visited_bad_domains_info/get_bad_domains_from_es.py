@@ -3,8 +3,8 @@
 """
 
 from common.index_op_mal_dom import set_mal_domain_index_params
-from common.common_domains_op import write2file
-from common.common_domains_op import FULL_DOM_DIR
+from common.domains_op import write2file
+from common.domains_op import FULL_DOM_DIR
 
 
 def get_non_dga_domains():

@@ -1,11 +1,12 @@
 """
-此文件是为了验证提取出的恶意域名是否真的是恶意的，形成最终的恶意域名数据集
+此文件是为了验证提取出的恶意域名是否真的是恶意的，形成最终的恶意域名数据集；
+这里是用作验证提取出的二级域名，但是这个文件可以验证任何域名是否恶意。
 """
 import os
 import time
 import random
-from common.common_domains_op import write2file
-from common.common_domains_op import UVER_DOM_DIR, VER_DOM_DIR
+from common.domains_op import write2file
+from common.domains_op import UVER_DOM_DIR, VER_DOM_DIR
 from get_visited_bad_domains_info.test_one_domain import scan_url
 
 
